@@ -260,9 +260,128 @@
 67 动态绑定传参
 
 68 no props使用
+    inheritAttrs:false 接收属性
+    多个不生效
+    获取v-bind="$attrs"
+    :style="$attrs.info" 获取单个
 
+69 自定义动画
+    通过操作css的trasition或animation可以给特定目标元素添加 移除class
+    xxx-enter/xxx-leave-to:指定隐藏的样式
+    xxx-enter-active:指定显示的transition
+    xxx-leave-active:指定隐藏的transition
+    
+70 过渡效果
 
+71 封装调用
+    v-enter-form 进入
+    v-enter-active 中
+    v-enter-to
 
+    @keyframes shake-from{
+        0%{
 
+        }
+        100%{}
+    }
 
+    <transition type="animation" 动画为主 
+    :duration="1000"控制所有效果的时长
+    :duration="{enter:3000,leave:100}"
+
+    enter-active-class=""
+
+75 js调用动画
+    <transition
+  @before-enter="beforeEnter"
+  @enter="enter"
+  @after-enter="afterEnter"
+  @enter-cancelled="enterCancelled"
+  @before-leave="beforeLeave"
+  @leave="leave"
+  @after-leave="afterLeave"
+  @leave-cancelled="leaveCancelled"
+  :css="false"
+ >
+  <!-- ... -->
+    // ...
+ methods: {
+  // --------
+  // 进入时
+  // --------
+
+  beforeEnter(el) {
+    // ...
+  },
+  // 当与 CSS 结合使用时
+  // 回调函数 done 是可选的
+  enter(el, done) {
+    // ...
+    done()
+  },
+  afterEnter(el) {
+    // ...
+  },
+  enterCancelled(el) {
+    // ...
+  },
+
+  // --------
+  // 离开时
+  // --------
+
+  beforeLeave(el) {
+    // ...
+  },
+  // 当与 CSS 结合使用时
+  // 回调函数 done 是可选的
+  leave(el, done) {
+    // ...
+    done()
+  },
+  afterLeave(el) {
+    // ...
+  },
+  // leaveCancelled 只用于 v-show 中
+  leaveCancelled(el) {
+    // ...
+  }
+ }
+ </transition>
+ 
+76 多组元素无缝动画
+
+78 列表过渡
+
+79 mixin使用
+
+82 自定义指令
+
+85 teleport传送门
+
+86 optionsAPI缺陷
+
+87 setup基本认知
+
+88 re的使用
+
+89 reactive的使用
+
+90readonly的使用
+
+91 toRefs的使用
+
+93 contex的使用
+
+96 技术属性新用法
+
+97 计算属性新用法
+
+99 watch新用法
+
+101 watchEffect
+
+102 provide 和inject
+
+104 生命周期钩子新写法
 
