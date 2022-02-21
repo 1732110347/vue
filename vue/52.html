@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <lk-box @box-click="boxFunc"></lk-box>
+
+    </div>
+    <template id="box">
+        <div>
+            <button @click="btnClick">点</button>
+        </div>
+    </template>
+    <script src="vue.js"></script>
+
+    <script>
+        const Box = {
+            template: '#box',
+            methods: {
+                btnClick() {
+                    alert('djl');
+                    this.$emit('boxClick');
+                }
+            }
+        };
+        const app = Vue.createApp({
+            data() {
+                return {
+
+                }
+            },
+            components: {
+                'lk-box': Box
+            },
+            methods: {
+                boxFunc(item) {
+                    console.log('子组件');
+                }
+            },
+        }).mount('#app');
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <lk-count></lk-count>
+
+    </div>
+    <template id="count">
+        <div>
+            <p>结果{{count}}</p>
+            <button @click="add">+</button>
+            <button @click="sub">-</button>
+
+        </div>
+    </template>
+    <script src="vue.js"></script>
+
+    <script>
+        const Count = {
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            template: '#count',
+            methods: {
+                add() {
+                    this.count++;
+                },
+                sub() {
+                    this.count--;
+                }
+            },
+        };
+        const app = Vue.createApp({
+            data() {
+                return {
+                    msg: 'as'
+                }
+            },
+            components: {
+                'lk-count': Count
+            }
+        }).mount('#app');
+    </script>
+
+
+</body>
+
+</html>

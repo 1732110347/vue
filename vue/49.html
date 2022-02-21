@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <lk-box :brand="msg1" :colleges="msg2"></lk-box>
+        <div id="home">
+            <span>首页</span>
+        </div>
+        <div id="msg">
+            <span>消息</span>
+        </div>
+        <div id="mine">
+            <span>我的</span>
+        </div>
+
+    </div>
+    <template id="box">
+        <div>
+            <h1>{{brand}}</h1>
+            <ul>
+                <li v-for="item in colleges" >{{item}}</li>
+
+            </ul>
+        </div>
+    </template>
+    <script src="vue.js"></script>
+
+    <script>
+        //创建局部组件
+        const Box = {
+            props: ['brand', 'colleges'],
+            template: '#box'
+        }
+        const app = Vue.createApp({
+            data() {
+                return {
+                    msg1: 'sss',
+                    msg2: ['22222', '333', '444']
+                }
+            },
+            components: {
+                'lk-box': Box
+            },
+            methods: {
+
+            },
+        }).mount('#app');
+    </script>
+
+
+</body>
+
+</html>

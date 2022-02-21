@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+      <lk-box>222</lk-box>
+
+    </div>
+    <script src="vue.js"></script>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+
+                }
+            }
+
+        });
+
+        //注册全局
+        app.component('lk-box', {
+            template:
+                <div style="background-color:red;width:200px;height:200px;">333
+                </div>
+        });
+
+        app.mount('#app');
+    </script>
+
+
+</body>
+
+</html>

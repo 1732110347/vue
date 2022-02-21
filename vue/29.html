@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <label for=""><input type="text" v-model="searchStr"></label>
+        <button @click="setOrderType(2)">升序</button>
+        <button @click="setOrderType(1)">降序</button>
+        <button @click="setOrderType(0)">还原</button>
+        <ul>
+            <li v-for="(p,index) in filterPersons">
+                {{index+1}}--姓名:{{p.name}},年龄:{{p.age}}
+
+            </li>
+        </ul>
+    </div>
+    <script src="vue.js"></script>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    persons: [
+                        { name: 'aaa', age: 22 },
+                        { name: 'bbb', age: 212 },
+                        { name: 'ccc', age: 222 },
+                    ],
+                    searchStr: '',
+                    orderType: 0,
+                }
+            },
+            computed: {
+                filterPersons() {
+                    const { persons, searchStr, orderType } = this;
+                    let arr = [
+                    ...persons];
+                    if (searchStr.trim()) {
+                        arr = persons.filter((p) => {
+                            return p.name.indexOf(searchStr) !== -1;
+                        });
+                    }
+                    if (orderType) {
+                        arr.sort((p1, p2) => {
+                            if (orderType === 1) {
+                                return p2.age - p1.age;
+                            } else {
+                                return p1.age - p2.age;
+                            }
+                        });
+                    }
+                    return arr;
+                }
+            },
+            methods: {
+                setOrderType(orderType) {
+                    this.orderType = orderType;
+                }
+            },
+
+        }).mount('#app');
+    </script>
+
+
+</body>
+
+</html>

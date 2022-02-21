@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <lk-box></lk-box>
+
+    </div>
+    <template id="LKButton">
+        <div>
+            <button @click="btnClick">{{count}}</button>
+        </div>
+    </template>
+    <template id="LKBox">
+        <div>
+            <lk-button></lk-button>
+        </div>
+    </template>
+    <script src="vue.js"></script>
+
+    <script>
+        const LKButton = {
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                btnClick() {
+                    this.count++;
+                    console.log(this.$parent.abc);
+                }
+            },
+            template: '#LKButton',
+        };
+        const LKBox = {
+            data() {
+                return {
+                    abc:'sss'
+                }
+            },
+            template: '#LKBox',
+            components: {
+                'lk-button': LKButton
+            }
+        };
+        const app = Vue.createApp({
+            data() {
+                return {
+
+                }
+            },
+            components: {
+                'lk-box': LKBox
+            },
+         
+        }).mount('#app');
+    </script>
+
+
+</body>
+
+</html>

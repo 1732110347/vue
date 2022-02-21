@@ -1,0 +1,268 @@
+ 4 
+    app.xx.push('as');
+
+    5
+
+6 MVC和MVP和MVVM
+    MVC 
+    M指model模型，数据层 负责数据的处理和获取数据接口层
+    V View视图 视图层是指用户看到并与之交互的界面 
+    C controller控制器 是M和V之间的中间人
+    V传送指令到C C完成业务逻辑后要求M改变状态 M将新的数据发送到V 所有通信都是单向
+
+    MVP 
+    将C变为Presenter(广播)各部分分和P向连都为双向两个单箭头
+    V中不部署如何业务逻辑 称为被动视图(Passive View)而Presenter非常厚所有逻辑在这
+
+    MVVM
+    将Presenter层替换为ViewModel
+    View和ViewModel双箭头绑定 视图层变化自动反映在ViewModel反之亦然
+    一个ViewModel和一个view绑定
+
+    app=ViewModel data=model
+
+7 MVVM架构
+
+8 配置模板
+    data放数据
+    prop放组件
+    methods里存放事件的方法
+
+9 配置devtool
+
+10 mustache语法
+    {{msg}}
+    {{msg+''+site}}
+
+11插值指令
+    v-once 值不改变
+
+    v-text="msg" 设置值会覆盖里面
+
+    v-html="site" 转换为页面
+
+    v-pre 不产生编译
+
+    v-cloak 在实例解析结束后删除 
+
+13 v-bind
+    动态绑定
+    v-bind:src="img"
+    :src
+
+14 v-bind 绑定
+    :class="{f60:true,f50:false}"
+    :class="[red, f60]"
+    :class="getClass()"
+    methods:{getClass(){return[this.red]}}
+
+    :style="{fontSize:f50}"
+
+17 v-on 
+    v-on:click="add"
+    v-on:=@
+    arguments打印全部
+    获取事件$event
+    不带参数
+    add add()
+    带参数
+    add('2')
+    带参数也需要事件对象
+    add('2',$event)
+
+19 修饰符绑定
+    阻止冒泡
+    @add.stop
+    或者
+    add(event)
+    event.stopPropagation()
+
+    @add.prevent
+
+    @add.once只产生一次
+
+    @keyuo按键事件
+    @keyup.enter监控回车
+
+20 计算属性
+    函数
+    {{getFullName()}}
+    计算属性
+      {{fullName}}
+    computed:{
+        本质是属性 写法如函数，命名如属性
+        fullName(){
+            return
+        }
+    }
+
+    members:[(id:'22',ad:'32')]
+     computed:{
+        fullName(){
+            let total =0;
+            for(let members of this.members){
+            total+=members.id;  
+            }
+                return
+        }
+    
+    }
+
+23 函数和计算属性区别
+    函数 
+    每次重新运算
+    计算属性 
+    会缓冲值如果相同直接调用
+
+
+24 v-if 和v-show
+    if是真正条件渲染
+    show用css控制
+    v-show="flag"
+    v-show="!flag"
+25 if和show区别
+
+26 v-for 遍历数组
+    li v-for="p in ppp">{{p}}
+    ppp:[1,2,3]
+27 对象
+     li v-for="p in ppp">{{p}}
+        li v-for="(p,key) in ppp">{{key}}{{p}}
+    ppp:{age:[1,2,3],name:'ad'}
+
+28 案例
+
+31 绑定key的条件和原因
+    :key="item.id"
+
+32 未知bug
+
+33 model
+    绑定表单
+    v-model.lazy 焦点结束再变
+    .number int类型
+    .trim 去掉空格
+
+37 指令案例
+    this.persons.splice(index,1);删除
+
+41 基本使用
+    app.component定义
+      //挂载组件实例
+        app.mount('#app');
+42 命名规范
+    不能驼峰
+    全局可以用在局部
+
+43 全局组件
+    先注册再挂载
+44 局部组件
+    components 组件选项
+
+45 组件标签化
+    <script type="text/template" id=""></script>解析模板语言
+    template
+
+46组件的data选项数据不能共享
+
+47 必须是函数
+    每个组件独立状态不受干扰
+
+49组件通信 props
+    只指定名称 props:['name','age']
+
+    指定名称和类型 props:{name:String,age:Number}
+
+    指定名称类型和必要性默认值 props:{name:{type:String,required:true,default:xxx }}
+
+51 使用注意
+    数据类型 String Number Boolean Array Object Date Function Symbol 也支持自定义类型
+    html无法识别驼峰
+
+52 自定义事件
+    父子    
+    绑定事件监听    <lk-box @box-click="boxFunc"></lk-box>
+    触发事件    this.$emit('boxClick','lkxy');
+
+    多数据 以数组或对象 
+
+    
+
+54 ref的使用
+    父子组件互相访问 父访问子 $refs
+    子访问父 $parent
+
+
+55 root和parent
+    1 子组件访问父组件
+    this.$parent  this.$parent.abc 
+    2 子组件中访问根组件
+    this.$root
+
+56插槽的使用
+    子组件中的提供给父元素组件使用的一个占位符 用slot
+    父组件可以在这个占位父中填充任何模板代码 html 组件
+    填充的内容还会替换子组件的slot
+
+57 作用域插槽
+    <template v-slot:header> name header
+    <template v-slot:default>找无名
+
+58 渲染作用域
+    父级模板里的所有内容都是在父级作用域中编译的
+    子模板里的内容都是在子作用域中编译的
+
+59 作用域插槽
+    父组件替换插槽中的标签
+    但使用的是子组件的数据
+    <slot :data="">
+      <template v-slot:default="接收数据" >{{接收数据.data.join('--')}}
+
+60 动态组件
+    当组件之间切换的时候，有时会想保持组件状态，避免反复渲染
+    根据数据的变化，结合component标签，动态切换组件的显示
+        <!-- <keep-alive>
+                <component :is="cItem"></component>
+            </keep-alive> -->
+
+61 异步组件
+    通过defineAsyncComponent方法实现异步组件
+    Promise(())
+
+62 组件生命周期
+    在一个组件的生命周期范围内 某一时刻会自动执行的函数
+    beforeCreate 在实例生成之前自动执行
+    created     在实例生成之后自动执行
+    beforeMount 在组件内容被渲染之前被调用
+    mouted      渲染之后调用
+
+    多次调用
+    beforeUpdate 数据发生变化调用
+    updated        数据发生变化页面也变化之后
+
+    beforeUnmount vue实例失效前
+    unmounted       已经结束
+    setTimeout(()=>{},2000)延时销毁
+
+64 错误捕抓
+    errorCaptured(err,instance,info){}
+    
+65 watch侦听器
+    计算属性
+    computed:{memberPrice(){return this.}}
+    watch:{price(current原,prev现)}
+    计算属性在调用时需要在模板中渲染，修改计算所依赖元数据，watch只需要在调用时只需修改元数据
+    计算属性默认深度依赖  watch默认浅度观测
+    计算属性适合做筛选 ，不可异步  watch适合做执行异步活开销较大操作
+
+66 单向数据流
+
+67 动态绑定传参
+
+68 no props使用
+
+
+
+
+
+

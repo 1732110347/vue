@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+<ul>
+    <li>{{colleges[0]}}</li>
+</ul>
+
+<ul>
+    <li v-for="college in colleges">{{college}}</li>
+</ul>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //创建配置对象
+        const listApp = {
+            data() {//定义数据
+                return {
+                    colleges:['a','b','c']
+                }
+            }
+        };
+        //1创建vue的实例对象
+        const app = Vue.createApp(listApp).mount('#app')
+    </script>
+    
+</body>
+</html>
