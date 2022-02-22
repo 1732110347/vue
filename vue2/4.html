@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="app">
+     
+     
+    </div>
+    <script src="vue.js"></script>
+     
+    <script>
+      const app = Vue.createApp({
+          data() {
+              return {
+    list:['1','2','3']
+              }
+           },
+           methods: {
+    add(){
+        this.list.push(this.value)
+        this.value=''
+    }
+           },
+           template:`<button @click="add">增加</button>
+           
+           <input v-model="value"/>
+           <title1 />
+           <ul>
+            <li v-for="(item,index) of list">{{index}}{{item}}</li>
+            </ul>
+            <ji v-for="(item,index) of list" :item="item" :index="index" />
+           `
+      })
+      app.component('title1',{
+          template:`<h1>111111111111111111</h1>`
+      })
+      app.component('ji',{
+          props:['index','item'],
+          template:` <li >{{index}}{{item}}</li>`
+      })
+      app.mount('#app');
+    </script>
+    
+    
+</body>
+</html>

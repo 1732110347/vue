@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+
+
+    </div>
+    <script src="vue.js"></script>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    counter: '',
+                    setMeal:'222222222222',
+                    isShowMeal:false,
+                }
+            },
+            methods: {
+                welcome() {
+                    this.counter="欢迎"
+                },
+                bye() {
+                    this.counter="再见"
+                },
+                show(){
+                    this.isShowMeal=!this.isShowMeal;
+                }
+            },
+            mounted() {
+                // setInterval(() => {
+                //     this.counter += 1
+                // }, 1000)
+            },
+            template: `
+            <div>
+            <div>{{counter}}</div>
+            <button @click="welcome">来到</button>
+            <button @click="bye">离开</button>
+            <div v-if="isShowMeal">{{setMeal}}</div>
+            <button @click="show">展示</button>
+            </div>
+            `
+        }).mount('#app');
+    </script>
+
+
+</body>
+
+</html>

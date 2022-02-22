@@ -1,0 +1,138 @@
+1 初识
+    Vue.createApp({ 创建一个vue实例
+    template:'单行' `多行` 模板语言写html
+    .mount('#app');挂载在什么上面
+    
+2 vue3编写计数器
+    mounted() {
+                setInterval(() => {
+                    this.counter += 1
+                }, 1000)
+            },
+            
+3 来宾欢迎展示
+      methods: { 方法
+
+            },
+
+            @click
+             v-if=
+
+4 vue3循环和数据双向绑定 佳丽列表
+        <li v-for="item of list">{{item}}</li>
+        v-model="value"
+
+5 vue3组件开发 
+    app.component('xx',{ 挂载组件 xx为组件名
+
+    })
+    父传子props:['index','item'],
+
+6 vue的createApp()和mount()
+
+7 vue3 x的生命周期函数 1
+    beforeCreate 在实例生成之前自动执行
+    created 在实例生成之后自动执行
+    beforeMount 在组件内容被渲染挂载之前被调用
+    mount 在挂载之后
+
+8 2
+    beforeUpdate 数据发生变化调用
+    updated        数据发生变化页面也变化之后
+    
+    beforeUnmount vue实例失效前
+    unmounted       已经结束
+
+9 插值表达式和v-bind指令
+    message="<div>"
+    v-html="message"
+    v-once 值不改变
+
+10 模板动态参数和阻止默认事件
+    @click=@[event] event:'click'
+
+    e.preventDefault() 阻止默认事件
+    @click.prevent
+
+11 模板中的条件判断
+
+12 vue中的计算属性computed
+    computed:{total(){xxxxx}} 必须return
+
+    只要页面重新渲染就重新执行方法
+    methods:{total(){xx}}
+    {{total()}}
+
+13 侦听器watch
+    watch:{
+        xx(current,prev){}
+    }
+    current变化的值  prev之前的值
+
+14 模板样式绑定
+    classString:'red'
+    classObject:{red:false,background:true}
+    classArray:['red','backrgound',{red:false}]
+    class="xx"
+
+15 2
+
+16 v-show和v-if
+    show用display来显示隐藏
+
+17 v-for循环列表
+    :key="index+item"
+    只渲染改变的
+
+    对象循环
+    listObject:{one:'11',two:'22'}
+    v-for="(value,key,index)in listObject" :key="key"
+18 2
+    template 控制元素
+
+19 绑定事件 方法和参数
+    @click="add(2,$event)"
+    调用多个要加括号add(),add2()
+
+20 事件修饰符
+    冒泡 先父后子
+    @click.stop 阻止冒泡 
+    @click.self 只有点此才触发
+      @click.prevent
+
+      capture捕获模式 先子后父
+
+      once只产生一次
+
+      passive
+
+21 键盘and鼠标修饰符
+    按钮修饰符 @xxx.enter 回车
+    tab
+    delete
+    esc
+    up
+    down
+    left
+    right
+
+    鼠标 left right middle
+
+22 表单的双向数据绑定
+
+23 修饰符
+    input true-value="xxx" false-value="xxx"
+
+    v-model.lazy 懒加载 焦点结束再变
+    typeof 查类型
+    v-number 变number型
+    v-trim 去掉空格
+
+
+
+
+
+
+
+
+
