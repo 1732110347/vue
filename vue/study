@@ -350,11 +350,36 @@
  </transition>
  
 76 多组元素无缝动画
+      mode属性专门用来控制是先显示离场和入场动画的顺序的。比如现在想让离场动画先显示，
+    然后再显示入场动画。就可以使用mode="out-in".
+
+    让进入页面，开始就产生动画效果，可以在<transition>标签上加上appear属性就可以实现。
+
+    appear属性的意思是初次对某一个元素进行默认显示的时候也进行动画显示。
 
 78 列表过渡
+     <transition-group>
 
 79 mixin使用
+    一个 mixin 对象可以包含任意组件选项。当组件使用 mixin 对象时，
+    所有 mixin 对象的选项将被“混合”进入该组件本身的选项。
+     mixins: [myMixin]
 
+    如果有不同的合并
+     本身的优先级高于加入的
+
+    生命周期函数两种都执行先执行mixins的
+
+    $options    用于当前组件实例的初始化选项。当你需要在选项中包含自定义 property 时会有用处：
+     customOption: 'foo',
+    created() {
+    console.log(this.$options.customOption) // => 'foo'
+
+    通过配置决定使用哪个里面的属性
+    app1.config.optionMergeStrategies.xxx=(mixinVal,appValue)=>{return appValue || mixinVal}
+
+    全局配置mixin
+    app1.mixin()
 82 自定义指令
 
 85 teleport传送门

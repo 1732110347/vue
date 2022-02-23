@@ -1,0 +1,132 @@
+1 全局组件定义和复用性讲解
+    app.component('xxx',{template:'xxx'})
+    性能低
+
+2 局部组件创建和注册方法
+    const xxx={}
+    注册 components:{xxx},
+    注册 components:{xxx:xxx},
+
+3 父子组件的静态和动态传值
+    <son name="222" />
+     app.component('son',{props:['name'], template:'{{name}}'})
+     :name="xx"
+
+     pay:()=>{
+                alert('给你500元')
+            }
+     <xxx :pay />
+     props:['pay'],
+    methods:{
+        handleClick(){
+            alert('请付钱....')
+            this.pay()  // 付多少钱，是顾客说的算的，所以调用时才能确定
+        }
+    },
+
+4 组件传值的校验操作
+
+5 组件中的单项数据流机制
+    数据从父级组件传递给子组件，只能单向绑定。子组件内部不能直接修改从父组件传递过来的数据。
+
+    在组件内的数据项中声明一个变量，把父组件传递过来的变量赋值给内部变量，然后就可以随意修改了。
+
+    app.component('Counter', {
+    props: ['counter'],
+    data() {
+        return {
+            newCounter: this.counter
+        }
+    },
+    template: `
+        {{newCounter}}<button @click="this.newCounter+=1">增加数量</button>
+    `
+  })
+
+6 non-props使用技巧
+    没有写props,但这时候在调用的时候，是仍然可以传值的。
+    消除 这种移植，或者是复制，可以在子组件里接受这个属性，但并不使用他。
+    不想接受参数，也不想让Non-props属性起作用，这时候可以在子组件上使用inheritAttrs属性
+
+    $attrs不是单指某一个属性，而是指全部属性
+    <h3 v-bind="$attrs">Hello World</h3>
+     <h3 v-bind:style="$attrs.style">Hello World</h3>
+
+7 子组件中调用父组件方法、传值
+    子组件调用父组件的事件
+    用$emit调用父组件的响应事件add
+    add就是响应事件，在父组件的模板template中，添加一个add响应事件，然后响应事件再调用方法handleAdCounter
+     emits: ['add'],
+    methods: {
+        handleClick() {
+            this.$emit('add')
+        }
+    },
+     <counter :counter="counter" @add="handleAddCounter"/>
+
+    子组件向父组件传递参数
+       this.$emit('add', 2)
+       handleAddCounter(param) 
+
+    校验是通过emits这个选项来声明的
+    emits: {
+    add: (value) => {
+        return value < 20 ? true : false
+    }
+    },
+
+8 组件中的插槽slot
+    子组件中加入<slot></slot>标签 父组件中使用双标签进行调用。
+    插槽可以强大到直接使用子组件
+    插槽中也可以直接使用动态数据，也就是我们常说的数据项，比如定义一个数据项,
+    然后在插槽中使用，直接就可以使用了。
+    父模板里调用的数据属性，使用的都是父模板里的数据
+    子模板里调用的数据属性，使用的都是子模板里的数据
+
+9 插槽中的默认值和具名插槽使用
+    默认值的关键语法就是在<slot>插槽中直接输入值就可以了。
+    现在这种编写方法，在有值传递过来的时候，会显示正常的值，没有值的时候就会显示默认值
+
+    给<slot>标签加上一个name属性
+     <template v-slot:one><div></div></template>
+
+10 具名插槽简写和作用域插槽
+     <template #one><div></div></template>
+
+     子组件中有插槽，也有变量，这些变量如何在父组件中进行使用
+     父组件想使用子组件插槽中的值，可以使用:绑定的形式进行传递
+     :item="item"
+     v-slot="xxx"
+        <list v-slot="props"> 
+        <span>{{props.item}}</span> 
+    </list>
+
+    简化的方法
+       <list v-slot="{item}"> 
+            <div>{{item}}</div> 
+        </list>
+
+11 动态组件和状态保持
+    <component :is="showItem" />
+    保存input框中的文字，可以使用<keep-alive>标签，把动态组件包裹起来
+
+12 异步组件和promise知识
+    异步组件就是在调用组件时，这个组件并不立即渲染，而是要等带一些业务逻辑完成后，
+    才会进行执行组件内的逻辑和渲染到页面上。
+    app.component('async-component',Vue.defineAsyncComponent(()=>{
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve({
+                template:`<div>这是一个异步组件</div>`
+            })
+        },3000)
+    })
+
+ }))
+    用defineAsyncComponent()声明这是一个异步组件，在组件内部我们用Promise来完成逻辑
+
+13 provide和inject多级组件传值
+     provide:{
+        newHouse:'北京200平方房子一套'
+    },
+     inject:['newHouse'],

@@ -1,0 +1,59 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo08</title>
+    <style>
+        .v-enter-from,
+        .v-leave-to {
+            opacity: 0;
+        }
+
+        .v-enter-to,
+        .v-leave-from {
+            opacity: 1;
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: opacity 2s ease-in;
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.2/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const DaJiao = {
+        template: `<div>大脚进入了试衣间</div>`
+    }
+    const XiaoHong = {
+        template: `<div>晓红进入了试衣间</div>`
+    }
+    const app = Vue.createApp({
+        data() {
+            return {
+                component1: 'da-jiao'
+            }
+        },
+        methods: {
+            hanldClick() {
+                this.component1 = this.component1 === 'da-jiao' ? 'xiao-hong' : 'da-jiao'
+            }
+        },
+        components: {
+            'da-jiao': DaJiao,
+            'xiao-hong': XiaoHong
+        },
+        template: `  
+            <transition mode="out-in" appear>
+                <component :is="component1" />
+            </transition>
+            <button @click="hanldClick">切换动画</button>
+
+        `
+    }).mount("#app")
+</script>

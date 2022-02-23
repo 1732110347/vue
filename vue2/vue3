@@ -1,0 +1,78 @@
+1 css动画和vue3结合使用
+    动画：一个DOM元素，从一个地方移到另一个地方，这种效果叫做动画。比如一个层从浏览器的左侧移动到右侧，这就是动画。
+
+    过渡：是DOM元素中的一个属性，缓慢的变成另一个属性，这种效果叫做过渡效果。比如一个层从红色慢慢变成黄色，这种就是过渡。
+
+    使用CSS中的animation属性    关键帧keyframes指定详细的动画过程
+
+2 css制作过渡效果并用vue进行控制
+    transition的样式，这个样式用来执行过渡效果，具体意思是如果背景颜色background-color有变化时，我们要在3秒种完成过渡（变化），
+    并且效果是由慢到快进行的，此部分的关键词是ease。
+
+3 vue3制作动画效果
+    给动画的DOM元素加上<transition>标签。
+    固定的CSS样式写法v-enter-active意思是进入是采用何种动画方式
+
+4 vue3制作过渡效果
+
+5 第三方库
+    给transition标签一个name
+
+    这种形式也叫做部分更改，就是通过给<transition>标签一个name属性，然后CSS选择器也要跟着变化。
+    比如先把template中的<transition>标签，加入name='jspang'。
+    .jspang-enter-active{
+    animation: comein 1s;
+    }
+
+    自行制定CSS选择名称
+
+    这种方法，就是在<transition>标签中直接指定一个CSS样式，在工作中这种方法使用较多，灵活性也比较强。
+     <transition 
+        enter-active-class="come"
+        leave-active-class="go"
+    >
+
+6 过渡和动画并用技巧
+    <transition>标签上加入type='animation'属性，意思是不管过渡时长是多少，动画结束，整个过程结束
+
+    可以绑定属性<transition :duration="1000"> 来控制时长，意思是1秒后，结束动画和过渡
+
+    duration除了能写一个数字之外，还可以写对象进去，比如入场的时候1秒种，出厂的时候3秒钟，就可以这样写。
+
+    <transition :duration="{enter:1000,leave:3000}">
+
+7 js+vue3制作动画
+    如果不使用CSS动画，需要在<transition>标签上加入:css="false"
+     @before-enter="handleBeforeEnter"
+     handleBeforeEnter(element){
+    element.style.color="red"
+    },
+    element,这个参数就是动画的DOM元素，
+
+    handleEnterActive(element,done){
+    const animation=setInterval(()=>{
+        const color=element.style.color;
+        if(color=='red'){
+            element.style.color ="green"
+        }else{
+            element.style.color="red"
+        }
+    },500)
+    setTimeout(()=>{
+        clearInterval(animation)
+    },1500)
+    }
+    @enter="handleEnterActive"
+    done相当于得知动画执行结束后通知执行下一个钩子函数after-enter,如果不通知无法进入下一个钩子函数
+
+8 双元素交易效果制作
+    mode属性专门用来控制是先显示离场和入场动画的顺序的。比如现在想让离场动画先显示，
+    然后再显示入场动画。就可以使用mode="out-in".
+
+    让进入页面，开始就产生动画效果，可以在<transition>标签上加上appear属性就可以实现。
+
+    appear属性的意思是初次对某一个元素进行默认显示的时候也进行动画显示。
+
+9 双组件切换动画的效果
+    用:is来进行绑定。动态组件
+      <component :is="component" />
