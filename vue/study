@@ -380,28 +380,130 @@
 
     全局配置mixin
     app1.mixin()
+
 82 自定义指令
+    全局指令
+    xxx.directive('xx',{
+
+    })
+
+    局部指令
+    const xxx={
+    xx:{}
+    }
+    directives:xxx 挂载
+    使用v-xx
+
+    created：在绑定元素的 attribute 或事件监听器被应用之前调用。在指令需要附加在普通的 v-on 事件监听器调用前的事件监听器中时，这很有用。
+
+    beforeMount：当指令第一次绑定到元素并且在挂载父组件之前调用。
+
+    mounted：在绑定元素的父组件被挂载前调用。
+
+    beforeUpdate：在更新包含组件的 VNode 之前调用。
+
+    updated：在包含组件的 VNode 及其子组件的 VNode 更新后调用。
+
+    beforeUnmount：在卸载绑定元素的父组件之前调用
+
+    unmounted：当指令与元素解除绑定且父组件已卸载时，只调用一次
+
+    (el, binding) el拿到元素 binding拿到数据
+     el.style.position = 'fixed'    el.style[s] = binding.value + 'px'
+
 
 85 teleport传送门
+     Teleport 提供了一种干净的方法，允许我们控制在 DOM 中哪个父节点下渲染了 HTML，
+     而不必求助于全局状态或将其拆分为两个组件。
+     <teleport to="body"> 传送门
 
 86 optionsAPI缺陷
+    基于函数的api
+    
+    选项式 API 的生命周期选项和组合式 API 之间的映射
+
+    beforeCreate -> 使用 setup()
+
+    created -> 使用 setup()
+
+    beforeMount -> onBeforeMount
+
+    mounted -> onMounted
+
+    beforeUpdate -> onBeforeUpdate
+
+    updated -> onUpdated
+
+    beforeUnmount -> onBeforeUnmount
+
+    unmounted -> onUnmounted
+
+    errorCaptured -> onErrorCaptured
+
+    renderTracked -> onRenderTracked
+
+    renderTriggered -> onRenderTriggered
+
+    activated -> onActivated
+
+    deactivated -> onDeactivated
 
 87 setup基本认知
+    setup(props，context) props传递 context上下文
+    不能用this未挂载
 
 88 re的使用
+    让基础类型的数据具备响应式
+    引入ref
+    const {ref}=Vue;
+    let msg =ref('asd')
+
+    修改值
+    msg.value
 
 89 reactive的使用
+    让引用类型的数据具备响应式
+        引入reactive
+    const {reactive}=Vue;
+    let obj=reactive({name:'xx',sex:'x'})
+    let arr=reactive(['vue','react'])
+    修改 
+    obj.name='xx'
 
-90readonly的使用
+90 readonly的使用
+      引入readonly8
+    const {readonly}=Vue;
+    只允许读不允许修改
 
 91 toRefs的使用
+    引入toRefs
+    const{name,sex}=toRefs(obj);
+    return{name,sex}
+
+92 toRef 
+    变成响应式可以
+    obj.name='xx';== name.value=''
+    非必传
+    let age=toRef(obj,'age') 检查是否有age没有将创建出age
 
 93 contex的使用
+    const{attrs,slots,emit}=context attrs=props slots插槽 emit发射自定义事件
 
-96 技术属性新用法
+    const{slots}=context 获取插槽
+    slots.default()拿到元素对象
+    slots.default()[0].props       第一个元素的props
 
+    获取h const{h}=Vue
+    return ()=>h('div',{},[slots.default()])
+    
+    
 97 计算属性新用法
+    let num=component(()=>{
+        return num1*10;
+    })
 
+    使用get和set方法
+    
 99 watch新用法
 
 101 watchEffect
