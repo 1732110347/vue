@@ -1,0 +1,49 @@
+106 安装vue Cli
+    vue -V查看版本
+    npm update -g @vue/cli 升级最新
+    npm init @vitejs/app wo
+    vue create @vitejs/app
+    vue create xxx
+    cd xxx
+    npm install
+    npm install vue-loader-v16
+    npm run serve
+
+107 目录剖析
+    dependencies 生产依赖
+    devDependencies 开发依赖
+
+    assets 放音频 图片
+    components 放局部组件
+    pages 页面级别组件
+    APP.vue 项目级别组件汇聚地
+    main.js 输出项目级别组件
+
+109 体验案例1
+    style scoped 节流不让其他组件使用
+110 2
+
+111 3
+
+112 4 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

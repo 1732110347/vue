@@ -22,4 +22,9 @@ const router = createRouter({
   routes
 })
 
-export default router
+export default new Router({
+  mode:'hash',
+  base:process.env.BASE_URL,
+  scrollBehavior:()=>({y:0}),
+  router:constantRouterMap.concar(asyncRouterMap)
+})

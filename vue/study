@@ -505,10 +505,46 @@
     使用get和set方法
     
 99 watch新用法
+    引入watch
+    watch(xxx,(currentValue,preValue)=>{
+
+    },{})
+    
+    侦听多个以数组[xx,xxx],([currentXx,currentXxx],[preXx,preXxx])
+
+    侦听引用类型
+    watch(()=>xxx.xx,(currentValue,preValue))
 
 101 watchEffect
+    没有惰性
+    immediate:true
+
+    deep:true深度拷贝
+
+    需要引入
+    更加抽象
+    不能访问先前值
+    一对多监听所有
+    watchEffect(()=>{
+
+    })
 
 102 provide 和inject
+    发射
+    provide('xx',xx)
+    引入inject
+    const xx=inject('xx','默认值')
+
+    不能直接修改
 
 104 生命周期钩子新写法
+    选项式 API 的生命周期选项和组合式 API 之间的映射
+    beforeMount -> onBeforeMount
+
+    函数都得从vue引入
+    onBeforeMount(()=>{
+
+    })
+
+105 获取真实Dom
 
