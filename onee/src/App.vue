@@ -2,15 +2,13 @@
   <div class="todo-container">
     <div class="todo-wrap">
       <!-- 头部 -->
-      <Header :add-todo="addTodo" />
+      <!-- <Header  /> -->
       <!-- 列表 -->
-      <List :todos="todos" :del-todo="delTodoWithIndex"  />
+      <List />
       <!-- 尾部 -->
-      <Footer
-        :todos="todos"
-        :del-finished-todos="delFinishedTodos"
-        :selected-all-todo="selectedAllTodo"
-      />
+      <!-- <Footer
+       
+      /> -->
     </div>
   </div>
 </template>
@@ -20,36 +18,33 @@
 import Header from "./components/Header.vue";
 import List from "./components/List.vue";
 import Footer from "./components/Footer.vue";
+import { reactive,provide } from "vue";
 export default {
-  name: "app",
-  data() {
-    return {
-      todos: [
-        { title: "dyc", finished: false },
-        { title: "ppq", finished: false },
-        { title: "ymq", finished: false },
-      ],
-    };
-  },
-  methods: {
-    delTodoWithIndex(index) {
+  setup() {
+    let todos = reactive(target, [
+      { title: "dyc", finished: false },
+      { title: "ppq", finished: false },
+      { title: "ymq", finished: false },
+    ]);
+    const delTodoWithIndex = (index) => {
       console.log(this.todos[index].finished);
-      this.todos.splice(index, 1);
-    },
-    addTodo(todo) {
-      this.todos.unshift(todo);
+      todos.splice(index, 1);
+    };
+    const  addTodo=(todo)=> {
+      todos.unshift(todo);
     },
   
-    selectedAllTodo(isChecked) {
-      this.todos.forEach((todo) => {
+   const  selectedAllTodo=(isChecked)=> {
+     todos.forEach((todo) => {
         todo.finished = isChecked;
       });
     },
-    delFinishedTodos() {
-      this.todos = this.todos.filter((todo) => {
-        return ! todo.finished;
+   const  delFinishedTodos=()=> {
+      todos = todos.filter((todo) => {
+        return !todo.finished;
       });
     },
+  
   },
   components: {
     Header,

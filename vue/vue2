@@ -7,6 +7,7 @@
     cd xxx
     npm install
     npm install vue-loader-v16
+    npm install vue-router@4
     npm run serve
 
 107 目录剖析
@@ -25,11 +26,94 @@
 
 111 3
 
-112 4 
+122 概念路由
+    
+123 后端渲染
 
+124 前后端分离
 
+125 前端路由
+    单页面应用程序
 
+126 history和hash
+    hash 通过监听浏览器的onhashchange()事件变化，查找对应的路由规则 #/
 
+    利用HTML5 History Interface 中新增的pushState() 和replaceState()
+
+127 项目集成VueRouter
+
+128 基本使用
+     {path:'/',redirect:'home'},
+
+129 模式选择
+    hash 在内部传递的实际URL之前使用了一个哈希字符
+    这部分URL从未被发送到服务器，不需要在服务器层面上进行任何特殊处理
+
+    history 用户在浏览器直接访问嵌套路由时会404
+    需在服务器添加一个回退路由
+
+130 activeClass
+    active-class="cuttent" 选中样式
+    简化直接配置
+    .router-link-active{}
+
+    在index中设置 linkActiveClass:'xx'
+    .xx{}
+
+131 js实现路由
+    replace 不能退回前进
+
+    import router from "./router";
+    @click="home()"
+    const home=()=>{
+        router.push('/home')
+    }
+
+132 动态路由
+     {path:'/news/:id',component:News},
+     {{$route.params.id}} 当前活动的 router全局
+
+     import {useRoute} from 'vue-router'
+       const route =useRoute()
+        console.log(route.params.id);
+
+133 路由懒加载
+    const Home=()=>import('./../components/Home.vue')
+
+134 路由嵌套
+       children:[
+            {path:'msg',component:MineMsg},
+            {path:'order',component:MineOrder}
+        ]
+        在父路由里 子不用/
+
+135 参数传递
+    params
+    query
+    :to="{path:'/circle',query:{name:'lk',age:10}}"
+    {{$route.query.name}}
+      let route = useRoute()
+    console.log(route.query);
+136 
+        const news = () => {
+      router.push("/news/" + newsId.value);
+    };
+    const circle = () => {
+      router.push({
+        path: "/circle",
+        query: { name: "l22k", site: "it.com", age: 10 },
+      });
+    };
+    
+137 router和route
+
+138 路由全局前置守卫
+
+139
+
+140 keep alive
+
+141
 
 
 
