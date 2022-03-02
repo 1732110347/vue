@@ -18,7 +18,11 @@
           <button @click="circle()">圈子</button> -->
     </div>
     <!-- 路由出口 -->
-    <router-view></router-view>
+    <router-view v-slot="{Component}">
+      <keep-alive>
+        <component :is="Component"></component>
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 

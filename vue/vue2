@@ -108,12 +108,45 @@
 137 router和route
 
 138 路由全局前置守卫
+    在进入路由前
+    一个路由匹配到的所有路由记录会暴露为
+     $route 对象(还有在导航守卫中的路由对象)的$route.matched 数组。
+     我们需要遍历这个数组来检查路由记录中的 meta 字段，
+     但是 Vue Router 还为你提供了一个 $route.meta 方法，
+     它是一个非递归合并所有 meta 字段的
 
-139
+     ,meta:{title:'首页'}
+     router.beforeEach((to, from, next) => {
+    document.title = to.meta.title
+    next()
+        }
+    )
+    
+139 组件内守卫
+    引入onBeforeRouteLeave,onBeforeRouteUpdate
 
 140 keep alive
+    vue2
+    keep-alive
+        router-view
+
+    vue3
+      <router-view v-slot="{Component}">
+      <keep-alive>
+        <component :is="Component"></component>
+      </keep-alive>
+    </router-view>
 
 141
+    include-string|RegExp|Array 只有名称匹配的组件会被缓存
+    exclude-string|RegExp|Array 任何名称匹配的组件都不会被缓存
+    max-number|string 最多可以缓存多少组件实例
+
+    在路由配置keepAlive:true
+     <keep-alive>
+        <component :is="Component" v-if="$route.meta.keepAlive"></component>
+      </keep-alive>
+          <component :is="Component" v-if="!$route.meta.keepAlive"></component>
 
 
 
