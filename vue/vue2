@@ -10,6 +10,9 @@
     npm install vue-router@4
     npm run serve
 
+    npm install axios -g
+    npm install axios
+
 107 目录剖析
     dependencies 生产依赖
     devDependencies 开发依赖
@@ -148,9 +151,168 @@
       </keep-alive>
           <component :is="Component" v-if="!$route.meta.keepAlive"></component>
 
+150 Promise
+ 解决回调地狱
+ 用链式思维解决异步的操作
 
+ 三种状态
+ Pending Promise对象实例创建时候的初始状态
+ Fulfilled 成功状态
+ Rejected 失败状态
+ 状态不可回退
 
+ require(‘http’) 内置模块
 
+151
+ 创建一个promise
+ let p1=new Promise(executor:(resolve,reject)=>{
+ resolve()
+ })
+ resolve 成功 reject失败
+ 
+ p1.then(onfulfilled:(data)=>{})获取成功的data
+
+152
+
+153
+ Promise.all()
+
+154 axios
+
+155 get 
+ axios({
+     method:'get',
+     url:'',
+     Promise:{}
+ }).then((res)=>{}).catch((error)=>{})
+ 返回的是应该promise 用.then(()=>{})
+
+ axios.get('/user', {
+    params: {
+      ID: 12345
+    }
+  })
+  参数用params
+
+156 post 
+ 参数用data
+
+157 发起并发请求
+ axios.all 可以放入多个请求的数组
+ axios.all 返回的结果是一个数组，可以使用axios.spread 将数组的值展开
+
+ axios.all([axios({}),axios({})])
+
+ .then(axios.spread((res1,res2)=>{
+     
+ }))
+
+158 常用配置选项
+ 请求地址 url:'xx'
+ 请求类型 method:'get'
+ 请求根路径  baseURL: 'https://some-domain.com/api/'
+ 请求前数据处理transformRequest: [function (data, headers) {
+    // 对 data 进行任意转换处理
+    return data;
+  }],
+
+ 请求后数据处理  transformResponse: [function (data) {
+    // 对 data 进行任意转换处理
+    return data;
+  }],
+
+ 自定义请求头 headers: {'X-Requested-With': 'XMLHttpRequest'},
+ URL查询对象 params: {
+    ID: 12345
+  },
+ URL查询对象序列化
+ request body
+ 超时设置 timeout: 1000,
+ 跨域是否带token
+ 自定义请求处理
+ 身份验证 auth: {
+    username: 'janedoe',
+    password: 's00pers3cret'
+  },
+ 响应数据规则 responseType: 'json', // default
+
+159 全局配置 
+ 引入 import axios from 'axios'
+ axios.defaults.baseURL='xxx'
+
+160 封装
+ import axios from "axios";
+ export default function ajax(url = '', params = '', type = 'GET') {
+    return new Promise((resolve, reject) => {
+        let promise
+        // 判断请求类型
+        if (type.toUpperCase() === 'GET') {
+            promise = axios({
+                url: url,
+                params
+            })
+
+        } else if (type.toUpperCase() === 'POST') {
+            promise = axios({
+                method: 'post',
+                url,
+                data: params
+            })
+        }
+        //返回处理
+        promise.then((res) => {
+            resolve(res)
+        }).catch((error)=>{
+            reject(error)
+        })
+    })
+ }
+161 封装调用
+ const getReq = () => {
+    axios(
+        "http://demo.itlike.com/web/xlmc/api/homeApi/categoriesdetail/lk001",
+
+        {
+          id: "lk001",
+          name: "like",
+          age: 10,
+        }
+      )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    并发请求 
+    Promise.all
+162 请求和响应拦截
+
+163 vuex
+
+164
+
+165 vuex集成
+
+166 vuex获取共享状态
+
+167 修改共享状态
+
+168 vuex异步状态
+
+169 vuex改进用法
+
+170 日程改造
+
+175 vuex细节
+
+176 vuex响应式系统
+
+177 vuex模板分割
+
+178 
 
 
 
