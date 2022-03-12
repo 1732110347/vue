@@ -1,4 +1,15 @@
 import axios from "axios";
+
+//请求拦截
+axios.interceptors.request.use((config)=>{
+    config.abc='xx'
+    return config;
+},(error)=>{
+    return Promise.error(error)
+})
+
+
+
 export default function ajax(url = '', params = '', type = 'GET') {
     return new Promise((resolve, reject) => {
         let promise
@@ -19,7 +30,7 @@ export default function ajax(url = '', params = '', type = 'GET') {
         //返回处理
         promise.then((res) => {
             resolve(res)
-        }).catch((error)=>{
+        }).catch((error) => {
             reject(error)
         })
     })

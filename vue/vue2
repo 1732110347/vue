@@ -13,6 +13,8 @@
     npm install axios -g
     npm install axios
 
+    npm install vuex@next --save
+
 107 目录剖析
     dependencies 生产依赖
     devDependencies 开发依赖
@@ -288,29 +290,143 @@
 
     并发请求 
     Promise.all
+
 162 请求和响应拦截
+ 请求拦截
+ axios.interceptors.request.use((config)=>{
+    config.abc='xx'
+    return config;
+ },(error)=>{
+    return Promise.error(error)
+ })
+ 响应拦截
+  axios.interceptors.response.use((response)=>{
+    
+    return response.data;
+ },(error)=>{
+    return Promise.error(error)
+ })
 
 163 vuex
+ 全局状态控制
+
+ 把组件的共享状态抽取出来，以一个全局单例模式管理
+ 在这种模式下，项目的组件树构成了一个巨大的视图，
+ 不管在树的哪个位置，任何组件都能获取状态或触发行为
 
 164
 
 165 vuex集成
+ state 数据
+ actions 异步同步
+ mutations 同步
+ 
+ import {createStore} from 'vuex'
+ //创建一个store对象
+ const store = createStore({
+ state:{//全局共享的状态 数据存放
+ counter:0
+ },
+
+ mutations:{//同步提交状态
+
+ },
+ actions:{//提交操作给mutations
+
+ }
+ })
+
+//导出
+export default store
+
+在main.js
+ import store from "./store/index.js";
+ const app = createApp(App)
+ app.use(store)
+ app.mount('#app')
 
 166 vuex获取共享状态
+   <h2>s{{$store.state.counter}}</h2>
 
 167 修改共享状态
+ state:{//全局共享的状态 数据存放
+ counter:0
+ },
+
+ mutations:{//同步提交状态
+ INCREMENT(state){
+    state.counter++
+ }
+ },
+ actions:{//提交操作给mutations
+    increment({commit}){
+      commit('INCREMENT')
+    }
+ }
+    const store = useStore();
+    const add = () => {
+    store.dispatch('increment')
+    };
 
 168 vuex异步状态
+ 严格模式 strict:true 如果不通过mutations会报错
+ srtict:process.env.NODE_ENV !=='production'
+ 
+ 直接传给mutations
+ store.commit('INCREMENT')
 
 169 vuex改进用法
+   return {
+      counter: computed(() => store.state.counter),
+      increment: () => store.dispatch("increment"),
+      increment1: (num) => store.dispatch("increment1", num),
+    };
 
 170 日程改造
 
 175 vuex细节
+  context对象
+  从中取出commit等
+
+
+  在大多数情况下，载荷应该是一个对象，这样可以包含多个字段并且记录的 mutation 会更易读：
+
+ mutations: {
+  increment (state, payload) {
+    state.count += payload.amount
+  }
+ }
 
 176 vuex响应式系统
+         college: {
+            name: 'xx',
+            site: 'www'
+        }
+         CHANGE(state) {
+            state.college.name = 'lke';
+            state.college.intro = 'zsasd'
+        },       
 
 177 vuex模板分割
+ Vuex 允许我们将 store 分割成模块（module）。
+ 每个模块拥有自己的 state、mutation、action、getter、
+ 甚至是嵌套子模块——从上至下进行同样方式的分割
+
+ const moduleA = {
+    state: () => ({
+        name: 'xxxxxx'
+    }),
+    mutations: {
+
+    },
+    actions: {},
+ }
+
+ const store = createStore({
+       modules: {
+        a: moduleA
+    }
+})
 
 178 
 
