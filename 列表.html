@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = function () {
+            var account = localStorage.getItem('account');
+            var password = localStorage.getItem('password');
+            var oTab = document.getElementById("tabs");
+            var oUl = oTab.getElementsByTagName("ul")[0];
+            var oLis = oUl.getElementsByTagName("li");
+            var oDivs = oTab.getElementsByTagName("div");
+
+            if (account == 2 && password == 2) {
+
+                for (var i = 0; i < oLis.length; i++) {
+                    oLis[i].index = i;
+                    oLis[i].onclick = function () {
+                        for (var n = 0; n < oLis.length; n++) {
+                            oLis[n].className = "";
+                            oDivs[n].className = "hide";
+                        }
+                        this.className = "on";
+                        oDivs[this.index].className = "";
+                    }
+                }
+                ;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <ul>
+        <li>鄂尔多斯</li>
+        <li>恩施</li>
+        <li>鄂州</li>
+      </ul>
+</body>
+
+</html>

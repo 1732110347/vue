@@ -40,7 +40,7 @@
                 filterPersons() {
                     const { persons, searchStr, orderType } = this;
                     let arr = [
-                    ...persons];
+                        ...persons];
                     if (searchStr.trim()) {
                         arr = persons.filter((p) => {
                             return p.name.indexOf(searchStr) !== -1;

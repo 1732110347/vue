@@ -18,11 +18,18 @@
           <button @click="circle()">圈子</button> -->
     </div>
     <!-- 路由出口 -->
-    <router-view v-slot="{Component}">
+    <router-view v-slot="{ Component }">
       <keep-alive>
         <component :is="Component"></component>
       </keep-alive>
     </router-view>
+  </div>
+  <div id="app">
+    <van-button type="primary">主要按钮</van-button>
+    <van-button type="success">成功按钮</van-button>
+    <van-button type="default">默认按钮</van-button>
+    <van-button type="warning">警告按钮</van-button>
+    <van-button type="danger">危险按钮</van-button>
   </div>
 </template>
 
@@ -30,7 +37,9 @@
 // import { useRouter } from "vue-router";
 import router from "./router";
 import { ref } from "vue";
+
 export default {
+
   setup() {
     const newsId = ref("lk001");
     // const router = useRouter();

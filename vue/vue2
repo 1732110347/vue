@@ -167,12 +167,12 @@
 
 151
  创建一个promise
- let p1=new Promise(executor:(resolve,reject)=>{
+ let p1=new Promise((resolve,reject)=>{
  resolve()
  })
  resolve 成功 reject失败
  
- p1.then(onfulfilled:(data)=>{})获取成功的data
+ p1.then((data)=>{})获取成功的data
 
 152
 
